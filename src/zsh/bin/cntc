@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+COMMAND_DIR="${${${(%):-%x}:A:h}:h}/commands"
+
+source "$COMMAND_DIR/auth.sh"
+source "$COMMAND_DIR/config.sh"
+source "$COMMAND_DIR/user.sh"
+
+is_cntc_error="false" is_help="false"
+
+case "$1" in 
+    configure) shift; $(configure "$@") ;;
+    config) shift; $(config "$@") ;;
+    user) shift; $(user "$@") ;;
+    login) shift; $(login "$@") ;;
+    logout) shift; $(logout "$@") ;;
+    -v|--version) shift; _cntc_version ;;
+    -h|--help) shift; is_help="true" ;;
+    *) is_cntc_error="true" ;;
+esac
+
+$is_cntc_error && {
+    cntc_log -s "cntc" -w "$(_ti "debug.command_error" "$(printf "%s " "$@")" "cntc --help")\n"
+    _cntc_help
+    exit 1
+}
+
+$is_help && {
+    _cntc_help
+    return 0
+}
+
+return 0

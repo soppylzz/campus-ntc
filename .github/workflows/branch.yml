@@ -1,0 +1,54 @@
+name: 🫰 Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        description: Branch Type
+        options:
+          - main
+          - campus
+          - shell
+          - go
+        default: new
+      name:
+        type: string
+        description: Branch Name
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: write
+
+jobs:
+  create_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get current timestamp & username
+        id: suffix
+        run: | 
+          echo "timestamp=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+          echo "user=${{ github.actor }}" >> $GITHUB_OUTPUT
+
+      - name: define new branch name
+        id: final
+        run: |
+          BRANCH_NAME="${{ github.event.inputs.branch }}/${{ github.event.inputs.name }}_SNAPSHOT_${{ steps.suffix.outputs.timestamp }}_${{ steps.suffix.outputs.user }}"
+          echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: checkout default branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: create new branch
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout -b "${{ steps.final.outputs.branch }}"
+          git push origin "${{ steps.final.outputs.branch }}"
