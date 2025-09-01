@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="etc/logo.png" alt="campus-ntc logo" width="150" style="border-radius: 50%;">
+  <img src="etc/logo.png" alt="campus-ntc logo" width="150">
 </p>
 
 <h1 align="center">🛜 Campus-NTC | 终端校园网登录工具</h1>
@@ -34,7 +34,7 @@
 
 ```shell
 # Download repository
-git clone --depth 1 https://github.com/yourname/campus-ntc.git $HOME/.local/share/campus-ntc  
+git clone --depth 1 https://github.com/soppylzz/campus-ntc.git $HOME/.local/share/campus-ntc  
 # Install command
 chmod +x $HOME/.local/share/campus-ntc/src/zsh/install.sh
 zsh $HOME/.local/share/campus-ntc/src/zsh/install.sh
