@@ -61,7 +61,7 @@ cli_campus_logo() {
             while IFS= read -r line; do
                 printf "%s\n" "$line" >&2
             done < $campus_logo_file
-            printf "$(_t "ui.cqupt_logo")\n"
+            printf "$(_t "ui.cqupt_logo")\n" >&2
             cli_divider 0
             ;;
     esac
