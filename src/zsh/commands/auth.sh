@@ -105,8 +105,7 @@ login() {
 
         _login $isp $account $password $local_ip $retry $timeout $is_debug
 
-        is_connect=$(check_internet)
-        if $is_connect; then
+        if $(check_internet); then
             if $complexity; then
                 printf "\n" >&2
                 _centered "$(_t "login.confirm_finish")"
@@ -129,6 +128,7 @@ login() {
 
 logout() {
     local is_debug="false" is_help="false" is_error="false"
+    local complexity="$(_c "terminal.complexity")"
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
@@ -178,9 +178,9 @@ logout() {
         local_ip=$(get_ip)
 
         _logout $isp $account $local_ip $is_debug
-        is_connect=$(check_internet)
-        if $is_connect; then
-            # save current user
+        
+        sleep 5
+        if $(check_internet); then
             if $complexity; then
                 printf "\n" >&2
                 _centered "$(_t "logout.confirm_failed")"
