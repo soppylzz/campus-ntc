@@ -1,88 +1,56 @@
-<p align="center">
-  <img src="etc/logo.png" alt="campus-ntc logo" width="150">
-</p>
+# campus-ntc (legacy)
 
-<h1 align="center">🛜 Campus-NTC | 终端校园网登录工具</h1>
+[![GitHub release](https://img.shields.io/github/v/release/soppylzz/campus-ntc)](https://github.com/soppylzz/campus-ntc/releases) ![zsh](https://img.shields.io/badge/shell-zsh-89E051)
 
-<div align="center">
+An archived zsh command-line tool for logging in to and out of the CQUPT campus network. It supports multiple user profiles and English or Chinese terminal output. This repository is no longer maintained.
 
-![version](https://img.shields.io/badge/version-0.0.1-blue)
-![zsh-compatible](https://img.shields.io/badge/shell-zsh-brightgreen)
-![license](https://img.shields.io/badge/license-MIT-green)
+## Requirements
 
-</div>
+- Linux or macOS with zsh installed
+- A terminal that supports Unicode and color output
 
-<center>
+## Installation
 
-一个基于 `zsh` 的命令行工具，用于简洁高效地登录和登出校园网。提供多用户配置和连接方式，支持中英文输出。
+Clone the repository and run its installer, which links `cntc` into `~/.local/bin`:
 
-</center>
-
-## 环境要求
-
-`Campus-NTC` 需要用户电脑支持如下功能：
-
-* Unix-like 操作系统（Linux/macOS）
-* 已下载并配置 `zsh` 命令行解释器
-* 终端支持：中英文字符、`emoji`、彩色输出
-
-## 安装与卸载
-
-### 1. 安装
-
-执行如下命令安装 `Campus-NTC` 命令行工具：
-
-```shell
-# Download repository
-git clone --depth 1 https://github.com/soppylzz/campus-ntc.git $HOME/.local/share/campus-ntc  
-# Install command
-chmod +x $HOME/.local/share/campus-ntc/src/zsh/install.sh
-zsh $HOME/.local/share/campus-ntc/src/zsh/install.sh
+```sh
+git clone --depth 1 https://github.com/soppylzz/campus-ntc.git "$HOME/.local/share/campus-ntc"
+zsh "$HOME/.local/share/campus-ntc/src/zsh/install.sh"
 ```
 
-在安装后请确保 `~/.zshrc` 中配置了环境变量 `PATH` ：
+If needed, add `~/.local/bin` to your shell's `PATH`:
 
-```shell
-export PATH="$HOME/.local/bin:$PATH"  # Add local bin directory to PATH
+```sh
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-### 2. 卸载
+## Usage
 
-```shell
-zsh $HOME/.local/share/campus-ntc/src/zsh/uninstall.sh    # Uninstall command
-rm -rf $HOME/.local/share/campus-ntc    # Remove repository
-```
+Create the initial configuration, then use `cntc` to manage accounts and connections:
 
-## 使用方法
-
-我们首先需要执行 `cntc configure` 初始化 `Campus-NTC` 的全局配置：
-
-```shell
+```sh
 cntc configure
+cntc user
+cntc login
+cntc logout
+cntc --help
 ```
 
-然后我们就使用 `cntc` 命令，访问所有功能：
+| Command | Purpose |
+| --- | --- |
+| `config` | Edit global settings from the command line |
+| `configure` | Configure global settings interactively |
+| `user` | Manage campus-network accounts |
+| `login` / `logout` | Connect to or disconnect from the campus network |
+| `--version` | Show the installed version |
 
-```shell
-cntc [command] [options]
+## Uninstall
+
+```sh
+zsh "$HOME/.local/share/campus-ntc/src/zsh/uninstall.sh"
+rm -rf "$HOME/.local/share/campus-ntc"
 ```
 
-**命令总览**：
+## License
 
-| 命令              | 说明        |
-| --------------- | --------- |
-| `config`        | 命令行配置全局设置 |
-| `configure`     | 交互式配置全局设置 |
-| `user`          | 管理校园网用户信息 |
-| `login`         | 登录校园网     |
-| `logout`        | 登出校园网     |
-| `-v`, `version` | 显示版本信息    |
-| `-h`, `--help`  | 显示帮助信息    |
-
-## 相关文档
-
-* **TODO LIST**：[TODO.md](./docs/TODO.md)
-* **贡献文档**：[CONTRIBUTING.md](./docs/CONTRIBUTING.md)
-
-## 开源许可证
-本项目使用 [MIT License](./LICNESE)。
+[MIT](./LICNESE).
